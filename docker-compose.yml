@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  librechat:
+    image: ghcr.io/danny-avila/librechat:latest
+    container_name: smart-math-librechat
+    ports:
+      - "3080:3080"
+    depends_on:
+      - mongodb
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3080
+      - MONGO_URI=mongodb://mongodb:27017/LibreChat
+      - DOMAIN_CLIENT=http://localhost:3080
+      - DOMAIN_SERVER=http://localhost:3080
+
+      # Supabase Configuration
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+
+      # Requesty API
+      - REQUESTY_API_KEY=${REQUESTY_API_KEY}
+      - REQUESTY_BASE_URL=${REQUESTY_BASE_URL}
+
+      # Security
+      - CREDS_KEY=f34be427ebb29de8d88c107a71546019685ed8b241d8f2ed00c3df97ad2566f0
+      - CREDS_IV=e2341419ec3dd3d19b13a1a87fafcbfb
+      - JWT_SECRET=16f8c0ef4a5d391b26034086c628469d3f9f497f08163ab9b40137092f2909ef
+      - JWT_REFRESH_SECRET=eaa5191f2914e30b9387fd84e254e4ba6fc51b4654968a9b0803b456a54b8418
+
+      # Custom Endpoint Configuration
+      - ENDPOINTS=SmartMathTeacher
+
+      # Debug
+      - DEBUG_CONSOLE=true
+      - DEBUG_OPENAI=true
+
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml:ro
+      - librechat_data:/app/client/public/images
+
+    restart: unless-stopped
+    networks:
+      - librechat_network
+
+  mongodb:
+    image: mongo:latest
+    container_name: smart-math-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+    networks:
+      - librechat_network
+
+networks:
+  librechat_network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+  librechat_data:
