@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { config } from 'dotenv';
 // @ts-ignore - pdf-parse types are incomplete
 import pdf from 'pdf-parse';
 import { QdrantService } from './qdrant-client.js';
@@ -7,6 +8,9 @@ import { EmbeddingService } from './embedding-service.js';
 import { TextChunker } from './text-chunker.js';
 import type { QdrantPoint } from './types.js';
 import { randomUUID } from 'crypto';
+
+// Load environment variables
+config();
 
 async function ingestPDFs() {
   console.log('Starting PDF ingestion process...');

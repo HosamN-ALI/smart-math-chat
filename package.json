@@ -12,6 +12,7 @@
   "dependencies": {
     "@qdrant/js-client-rest": "^1.9.0",
     "@supabase/supabase-js": "^2.39.7",
+    "dotenv": "^16.4.5",
     "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
