@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/index.ts",
+    "dev": "vite",
     "ingest": "tsx src/ingest.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@qdrant/js-client-rest": "^1.9.0",
@@ -18,7 +18,10 @@
   "devDependencies": {
     "@types/node": "^20.11.16",
     "@types/pdf-parse": "^1.1.4",
+    "esbuild": "^0.27.0",
+    "rollup": "^4.53.3",
     "tsx": "^4.7.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vite": "^7.2.4"
   }
 }
