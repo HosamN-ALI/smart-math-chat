@@ -1,0 +1,75 @@
+version: 1.1.5
+
+cache: true
+
+interface:
+  privacyPolicy:
+    externalUrl: 'https://example.com/privacy'
+    openNewTab: true
+  termsOfService:
+    externalUrl: 'https://example.com/terms'
+    openNewTab: true
+
+# Arabic UI optimization with RTL support
+endpoints:
+  custom:
+    - name: "SmartMathTeacher"
+      apiKey: "${REQUESTY_API_KEY}"
+      baseURL: "${VITE_SUPABASE_URL}/functions/v1/smart-math-chat"
+      models:
+        default:
+          - "anthropic/claude-3.5-sonnet"
+        fetch: false
+      titleConvo: true
+      titleModel: "anthropic/claude-3.5-sonnet"
+      summarize: false
+      summaryModel: "anthropic/claude-3.5-sonnet"
+      forcePrompt: false
+      modelDisplayLabel: "المعلم الذكي"
+      iconURL: "https://raw.githubusercontent.com/LibreChat-AI/librechat.ai/main/public/assets/librechat.svg"
+
+# Model specifications
+modelSpecs:
+  enforce: false
+  list:
+    - name: "anthropic/claude-3.5-sonnet"
+      label: "المعلم الذكي (Claude 3.5 Sonnet)"
+      description: "معلم رياضيات ذكي متخصص في المنهج السعودي"
+      contextWindow: 200000
+      maxOutputTokens: 8192
+      temperature: 0.7
+      topP: 0.9
+
+# Registration and authentication
+registration:
+  socialLogins: []
+  allowedDomains: []
+
+# File handling configuration
+fileConfig:
+  endpoints:
+    SmartMathTeacher:
+      disabled: false
+      fileLimit: 5
+      fileSizeLimit: 10
+      totalSizeLimit: 50
+      supportedMimeTypes:
+        - "application/pdf"
+        - "image/png"
+        - "image/jpeg"
+        - "image/jpg"
+        - "image/gif"
+        - "image/webp"
+
+# Rate limiting
+rateLimits:
+  fileUploads:
+    ipMax: 100
+    ipWindowInMinutes: 60
+    userMax: 50
+    userWindowInMinutes: 60
+  conversationsImport:
+    ipMax: 100
+    ipWindowInMinutes: 60
+    userMax: 50
+    userWindowInMinutes: 60
